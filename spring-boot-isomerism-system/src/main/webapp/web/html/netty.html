@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<meta charset="UTF-8">
+<title>Netty</title>
+</head>
+<body>
+	<table id="cmdTable" border="1">
+		<thead>
+			<tr>
+				<th>队列名</th>
+				<th>IP</th>
+				<th>端口</th>
+				<th>日志地址</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<form id="addForm" action="http://localhost:8888/mq/addNetty" method="post">
+					<td><input name="queueName" type="text"></td>
+					<td><input name="host" type="text"></td>
+					<td><input name="port" type="text"></td>
+					<td><input name="logFolder" type="text"></td>
+					<td><a onclick="save(this)">添加</a></td>
+				</form>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+<script type="text/javascript">
+	$.ajax({
+		type: "POST",
+		url: "http://localhost:8888/mq/getNetty",
+		dataType: "json",
+		success: function(msg){
+			for(var key in msg){
+				var item = msg[key]
+				var tr = "<tr><td>" + item['queueName'] + "</td><td>"
+				+ item['host'] + '</td><td>' + item['port'] 
+				+ "</td><td>" + item['logFolder'] + "</td><td>" + 
+				"<a onclick= 'remove(this)'>移除</a></td>"
+				$("#cmdTable").append(tr)
+			}
+		}
+	})
+		
+	function save(a){
+		var td = $(a).parent().parent().children("td")
+		var queueName = td.eq(0).children("input").eq(0).val()
+		var host = td.eq(1).children("input").eq(0).val()
+		var port = td.eq(2).children("input").eq(0).val()
+		var logFolder = td.eq(3).children("input").eq(0).val()
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:8888/mq/addNetty",
+			dataType: "text",
+			data: $("#addForm").serialize(),
+			success: function(msg){
+				if(msg == "success"){
+					var tr = "<tr><td>" + queueName + "</td><td>"
+					+ host + '</td><td>' + port 
+					+ "</td><td>" + logFolder + "</td><td>" + 
+					"<a onclick= 'remove(this)'>移除</a></td>"
+					$("#cmdTable").append(tr)
+					$("#cmdTable input").val("");
+				} else {
+					alert("失败")
+				}
+			}
+		})
+	}
+	
+	function remove(a){
+		var td = $(a).parent().parent().children("td")
+		var queueName = td.eq(0).text()
+		
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:8888/mq/removeNetty",
+			dataType: "text",
+			data: {
+				queueName: queueName
+			},
+			success: function(msg){
+				if(msg == "success"){
+					$(a).parent().parent().remove()
+				} else {
+					alert("失败")
+				}
+			}
+		})
+		
+	}
+</script>
+</html>

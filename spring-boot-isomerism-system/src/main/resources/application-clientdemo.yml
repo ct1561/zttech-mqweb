@@ -1,0 +1,36 @@
+client:
+  key-map: 
+    A:
+      exchange-name: RabbitMQ-Direct-Netty-Exchange
+      routing-key: netty_a_direct
+    B:
+      exchange-name: RabbitMQ-Direct-Netty-Exchange
+      routing-key: netty_b_direct
+    C:
+      exchange-name: RabbitMQ-Direct-Netty-Exchange
+      routing-key: netty_c_direct
+      
+  cmd:    open: true
+    item-list:    - dll-name: url.dll
+      entry-point: FileProtocolHandler
+      queue-name: A 
+      log-folder: E:\Logger\Client\cmd\A
+#    - dll-name: test
+#      entry-point: test
+#      log-folder: E:\Logger\Client\cmd\C
+#      queue-name: D
+      
+      
+  receive:    open: false
+    item-list:    - file-save-route: E:\LogTest\folderConsumeContent\A
+      queue-name: RabbirMQ-Fanout-Notice-Queue
+      log-folder: E:\Logger\Client\receive\A
+    - file-save-route: E:\LogTest\folderConsumeContent\A
+      queue-name: RabbitMQ-Direct-Email-Queue
+      log-folder: E:\Logger\Client\receive\A
+    
+  send:
+    open: false    folder-route: E:\LogTest\folderContent\E
+    client-delete-it: true
+    log-folder: E:\Logger\Client\send
+    

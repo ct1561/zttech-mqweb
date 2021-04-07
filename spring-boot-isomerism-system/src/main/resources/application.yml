@@ -1,0 +1,27 @@
+spring:  profiles:    include:    - client    - server    - mq    - threadpool  mvc:    servlet:      load-on-startup: 0    view:      prefix: /web/      suffix: .jsp    static-path-pattern: /static/**#  resources:#    static-locations:#    - classpath:/static/server:  servlet:    context-path: /server  port: 8080    #nettyconsumeconf:#  open: false#  client-list:#  - host: 127.0.0.1#    port: 9999#    client-name: A#    message-format: json#    back-up:#      file-route: E:\LogTest\nettyConsumeBackUp\A#      file-size: 1000#    queue-name: RabbitMQ-Direct-Netty-A-Queue#  - host: 127.0.0.1#    port: 8888#    client-name: B#    message-format: messagepack#    back-up:#      file-route: E:\LogTest\nettyConsumeBackUp\B#      file-size: 1000#    queue-name: RabbitMQ-Direct-Netty-B-Queue#Client   #keyMap            #recive    #log      #send    #log      #cmd#Server   #recive      #log   #send      #log      #folderconsumeconf:#  open: false
+#  item-list:#  - file-save-route: E:\LogTest\folderConsumeContent\A
+#    back-up:#      file-route: E:\LogTest\folderConsumeBackUp\A
+#      file-size: 1000
+#    queue-name: RabbitMQ-Direct-Folder-A-Queue
+#  - file-save-route: E:\LogTest\folderConsumeContent\D
+#    back-up:#      file-route: E:\LogTest\folderConsumeBackUp\B
+#      file-size: 1000
+#    queue-name: RabbitMQ-Direct-Folder-B-Queue#ClientCmd
+#dllconsumeconf:#  open: false
+#  item-list:#  - back-up:#      file-route: E:\LogTest\nettyConsumeBackUp\A
+#      file-size: 1000
+#    queue-name: A
+#    dll-information:#      dll-name: url.dll
+#      entry-point: FileProtocolHandler
+#      result-content: success
+#  - back-up:#      file-route: E:\LogTest\nettyConsumeBackUp\B
+#      file-size: 1000
+#    queue-name: RabbitMQ-Direct-Netty-B-Queue
+#    dll-information:#      dll-name: url.dll
+#      entry-point: FileProtocolHandler
+#      result-content: success
+
+#nettyproduceconf:#  open: true
+#  port: 8888#  message-format: json#  back-up:#    file-route: E:\LogTest\nettyLogTest\A#    file-size: 1024
+#ClientSend      
+#folderproduceconf:#  open: false#  client:#    delete-it-after: true#    message-format: json#    back-up:#      file-route: E:\LogTest\folderLogTest\A#      file-size: 1024#    folder-route: E:\LogTest\folderContent\E    #receivesigns:#  receive-sign-list:#  - sign: A#    exchange-name: RabbitMQ-Direct-Netty-Exchange#    routing-key: netty_a_direct#  - sign: B#    exchange-name: RabbitMQ-Direct-Netty-Exchange#    routing-key: netty_b_direct#  - sign: C#    exchange-name: RabbitMQ-Direct-Netty-Exchange#    routing-key: netty_c_direct#  - sign: D#    exchange-name: RabbitMQ-Direct-Folder-Exchange#    routing-key:  folder_a_direct#  - sign: E#    exchange-name: RabbitMQ-Direct-Folder-Exchange#    routing-key: folder_b_direct#  - sign: F#    exchange-name: RabbitMQ-Direct-Folder-Exchange#    routing-key: folder_c_direct

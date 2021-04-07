@@ -1,0 +1,11 @@
+server:
+  receive:
+    open: false
+    item-list:    - host: 127.0.0.1
+      port: 9999
+      queue-name: RabbitMQ-Direct-Netty-A-Queue
+      log-folder: E:\Logger\Server\receive\A
+    
+  send:    open: true
+    port: 8888
+    log-folder: E:\Logger\Server\send    

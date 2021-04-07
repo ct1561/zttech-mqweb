@@ -1,0 +1,201 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.zttech</groupId>
+  <artifactId>zttech-mqweb</artifactId>
+  <version>0.0.1</version>
+  <parent>
+  	<groupId>org.springframework.boot</groupId>
+  	<artifactId>spring-boot-starter-parent</artifactId>
+  	<version>2.3.3.RELEASE</version>
+  </parent>
+  
+  <dependencies>
+  	
+  	<dependency>
+	    <groupId>org.reflections</groupId>
+	    <artifactId>reflections</artifactId>
+	    <version>0.9.11</version>
+	</dependency>
+  	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+<!-- 	    <version>2.12.2</version> -->
+	</dependency>
+  	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+<!-- 	    <version>2.12.2</version> -->
+	</dependency>
+  	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+<!-- 	    <version>2.12.2</version> -->
+	</dependency>
+  	
+	<dependency>
+	    <groupId>org.msgpack</groupId>
+	    <artifactId>msgpack</artifactId>
+	    <version>0.6.12</version>
+	</dependency>
+	
+	
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.75</version>
+	</dependency>
+  	
+	<dependency>
+	    <groupId>io.netty</groupId>
+	    <artifactId>netty-all</artifactId>
+<!-- 	    <version>4.1.58.Final</version> -->
+	</dependency>
+  	
+  	<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jsp-api</artifactId>
+		</dependency>
+  	
+	<!-- 用于jsp页面的逻辑标签  c:forEach  c:if  之类的 -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version><!--$NO-MVN-MAN-VER$-->
+	</dependency>
+  	
+	<!-- 使用JSTL和EL表达式时需要导入这个包   web上需要用到，与jstl.jar联动  -->
+	<dependency>
+	    <groupId>org.apache.taglibs</groupId>
+	    <artifactId>taglibs-standard-impl</artifactId>
+	    <version>1.2.5</version>
+	</dependency>
+  	
+  	<dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-jdbc</artifactId>
+	</dependency>
+  	
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-amqp</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-web</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-test</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-configuration-processor</artifactId>
+  		<optional>true</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-devtools</artifactId>
+  	</dependency>
+  </dependencies>
+  
+  <build>
+
+  	<plugins>
+  		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-jar-plugin</artifactId>
+<!-- 		    <version>2.4</version> -->
+		    <configuration>
+		    	<includeSystemScope>true</includeSystemScope>
+                <source>1.8</source>
+                <target>1.8</target>
+                <jvmArguments>
+                	-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+                </jvmArguments>
+                <encoding>utf-8</encoding>
+		        <archive>
+		            <manifest>
+		                <addClasspath>true</addClasspath>
+		                <classpathPrefix>lib/</classpathPrefix>
+		                <mainClass>com.zttech.mq.web.springboot.SpringBootRunner</mainClass>
+		            </manifest>
+		        </archive>
+		    </configuration>
+		</plugin>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+				<encoding>UTF-8</encoding>
+				<compilerArguments>
+				<extdirs>src\main\webapp\WEB-INF\lib\zttech-mq.jar;src\main\webapp\WEB-INF\lib\wrapper.jar</extdirs>
+				</compilerArguments>
+  			</configuration>
+  		</plugin>
+  		<plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <executions>
+               <execution>
+                   <id>copy-dependencies</id>
+                   <phase>prepare-package</phase>
+                   <goals>
+                       <goal>copy-dependencies</goal>
+                   </goals>
+                   <configuration>
+                       <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                       <overWriteReleases>false</overWriteReleases>
+                       <overWriteSnapshots>false</overWriteSnapshots>
+                       <overWriteIfNewer>true</overWriteIfNewer>
+                   </configuration>
+               </execution>
+           </executions>
+       </plugin>
+  	</plugins>
+  	<resources>
+	    <resource>
+	        <directory>src/main/java</directory>
+	        <includes>
+	            <include>**/**</include>
+	        </includes>
+	    </resource>
+	    <resource>
+	        <directory>src/main/resources</directory>
+	        <includes>
+	            <include>**/**</include>
+	        </includes>
+	        <filtering>false</filtering>
+	    </resource>
+	    <resource>
+	        <directory>src/main/webapp</directory>
+	        <includes>
+	            <include>**/**</include>
+	        </includes>
+	        <targetPath>web</targetPath>
+	        <filtering>false</filtering>
+	    </resource>
+	</resources>
+  </build>
+</project>
