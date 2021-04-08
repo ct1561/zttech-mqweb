@@ -20,11 +20,16 @@ import io.netty.handler.codec.LengthFieldPrepender;
 
 public class SingtonNettyClient {
 
-	private static SingtonNettyClient client = null;
+	private volatile static SingtonNettyClient client = null;
 	
 	public static synchronized SingtonNettyClient getClient(String host, int port) {
 		if(client == null) {
-			client = new SingtonNettyClient(host, port);
+			
+			synchronized (SingtonNettyClient.class) {
+				if(client == null) {
+					client = new SingtonNettyClient(host, port);
+				}
+			}
 		}
 		return client;
 	}
