@@ -23,7 +23,7 @@ import com.zttech.mq.web.springboot.receive.entity.ThreadSavePlace;
 import ch.qos.logback.classic.Logger;
 
 @Controller
-@RequestMapping(value = "/mq")
+//@RequestMapping(value = "/mq")
 public class ListeneMQController {
 
 	@Autowired

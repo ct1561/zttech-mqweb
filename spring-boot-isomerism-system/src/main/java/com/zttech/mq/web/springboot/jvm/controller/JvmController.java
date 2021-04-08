@@ -24,7 +24,7 @@ public class JvmController {
 	@RequestMapping(value = "/goJvm")
 	public String goJvm(Model model) {
 		model.addAttribute("parameter", new JvmBaseParameter());
-		return "jvm/home";
+		return "/jvm/home";
 	}
 	
 	@ResponseBody
